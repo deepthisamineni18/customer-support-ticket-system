@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.support.service.TicketServiceTest
--------------------------------------------------------------------------------
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.398 s -- in com.support.service.TicketServiceTest
