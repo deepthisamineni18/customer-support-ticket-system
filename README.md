@@ -1,63 +1,48 @@
 # Customer Support Ticket System
 
-A comprehensive Customer Support Ticket Management application built with **Java 17**, **Spring Boot 3**, **Spring Data JPA**, **Maven**, **SQL**, and **Vanilla HTML/CSS/JavaScript**.
+A comprehensive Customer Support Ticket Management application built using Java 17, Spring Boot 3, Spring Data JPA, Maven, MySQL, and Vanilla HTML/CSS/JavaScript.
 
 ---
 
-## 1. Project Structure
+# 1. Project Overview
+
+The Customer Support Ticket System is a web-based application that enables customer support teams to create, manage, assign, resolve, and close customer tickets through a structured workflow.
+
+The application enforces business rules for ticket lifecycle management and provides a dashboard for tracking ticket statistics and support activities.
+
+---
+
+# 2. Technology Stack
+
+| Component          | Technology                |
+|--------------------|---------------------------|
+| Backend            | Java 17                   |
+| Framework          | Spring Boot 3.2.5         |
+| ORM                | Spring Data JPA           |
+| Database           | MySQL 8.x                 |
+| Build Tool         | Maven                     |
+| Frontend           | HTML5, CSS3, JavaScript   |
+| API Testing        | Postman                   |
+| Unit Testing       | JUnit 5, Mockito          |
+| Integration Testing| Spring Boot Test, MockMvc |
+| IDE                | Visual Studio Code        |
+
+---
+
+# 3. Project Structure
 
 ```text
 customer-support-ticket-system/
-│
+
 ├── backend/
-│   ├── pom.xml
-│   └── src/
-│       ├── main/
-│       │   ├── java/com/support/
-│       │   │   ├── CustomerSupportApplication.java
-│       │   │   ├── controller/
-│       │   │   │   ├── AgentController.java
-│       │   │   │   ├── CustomerController.java
-│       │   │   │   ├── GlobalExceptionHandler.java
-│       │   │   │   └── TicketController.java
-│       │   │   ├── dto/
-│       │   │   │   ├── AssignTicketRequest.java
-│       │   │   │   ├── CreateTicketRequest.java
-│       │   │   │   ├── ResolveTicketRequest.java
-│       │   │   │   ├── StatusUpdateRequest.java
-│       │   │   │   └── TicketStatsResponse.java
-│       │   │   ├── entity/
-│       │   │   │   ├── Agent.java
-│       │   │   │   ├── Customer.java
-│       │   │   │   ├── Ticket.java
-│       │   │   │   ├── TicketPriority.java
-│       │   │   │   └── TicketStatus.java
-│       │   │   ├── repository/
-│       │   │   │   ├── AgentRepository.java
-│       │   │   │   ├── CustomerRepository.java
-│       │   │   │   └── TicketRepository.java
-│       │   │   └── service/
-│       │   │       └── TicketService.java
-│       │   └── resources/
-│       │       ├── application.properties
-│       │       ├── schema.sql
-│       │       ├── data.sql
-│       │       ├── queries.sql
-│       │       └── static/
-│       │           ├── index.html
-│       │           ├── css/style.css
-│       │           └── js/app.js
-│       └── test/
-│           └── java/com/support/
-│               ├── controller/TicketControllerIntegrationTest.java
-│               └── service/TicketServiceTest.java
+│   ├── src/main/java
+│   ├── src/main/resources
+│   └── src/test/java
 │
 ├── frontend/
 │   ├── index.html
 │   ├── css/
-│   │   └── style.css
 │   └── js/
-│       └── app.js
 │
 ├── database/
 │   ├── schema.sql
@@ -66,127 +51,377 @@ customer-support-ticket-system/
 │
 ├── testing/
 │   ├── test-plan/
-│   │   └── Test_Plan.md
-│   │
 │   ├── test-cases/
-│   │   ├── Ticket_Creation_TestCases.md
-│   │   ├── Ticket_Assignment_TestCases.md
-│   │   ├── Status_Transition_TestCases.md
-│   │   ├── Ticket_Search_TestCases.md
-│   │   ├── Dashboard_TestCases.md
-│   │   └── Validation_TestCases.md
-│   │
 │   ├── api-testing/
-│   │   └── API_Test_Cases.md
-│   │
 │   ├── sql-testing/
-│   │   └── SQL_Test_Cases.md
-│   │
 │   ├── ui-testing/
-│   │   └── UI_Test_Cases.md
-│   │
-│   ├── bug-reports/
-│   │   └── Bug_Report_Template.md
-│   │
 │   └── test-summary/
-│       └── Test_Execution_Summary.md
 │
 ├── docs/
-│   ├── API_Documentation.md
-│   └── Assumptions.md
 │
-├── README.md
-└── .gitignore
+└── README.md
 ```
 
 ---
 
-## 2. Technology Stack
+# 4. Features
 
-- **Backend**: Java 17+, Spring Boot 3.2.5 (Spring Web, Spring Data JPA, Bean Validation)
-- **Database**: H2 (default in-memory), MySQL / PostgreSQL compatible drivers
-- **Frontend**: Vanilla HTML5, CSS3, JavaScript (Fetch API)
-- **Testing**: JUnit 5, Mockito, Spring Boot Test / MockMvc
-- **Build Tool**: Maven
+### Ticket Management
+
+- Create Support Tickets
+- View All Tickets
+- View Ticket Details
+- Assign Tickets to Agents
+- Update Ticket Status
+- Resolve Tickets
+- Close Tickets
+
+### Dashboard Features
+
+- Total Tickets Count
+- Open Tickets Count
+- In Progress Tickets Count
+- Resolved Tickets Count
+- Closed Tickets Count
+
+### Search & Filtering
+
+- Search Tickets
+- Filter by Status
+- Filter by Priority
+- Filter by Assigned Agent
+
+### Validation Rules
+
+- Mandatory field validation
+- Agent existence validation
+- Status transition validation
+- Resolution notes validation
+- Closed ticket protection
 
 ---
 
-## 3. How to Run the Application
+# 5. Ticket Workflow
 
-### 1. Build and Run Backend
+```text
+OPEN
+   ↓
+ASSIGNED
+   ↓
+IN_PROGRESS
+   ↓
+RESOLVED
+   ↓
+CLOSED
+```
+
+### Business Rules
+
+1. Ticket must start in OPEN state.
+
+2. Ticket can only move through the defined workflow.
+
+3. Agent assignment is mandatory before moving to IN_PROGRESS.
+
+4. Resolution notes are mandatory before RESOLVED.
+
+5. CLOSED tickets cannot be modified or reopened.
+
+---
+
+# 6. How to Run the Application
+
+## Step 1: Configure Database
+
+Update database configuration in:
+
+```properties
+src/main/resources/application.properties
+```
+
+Example:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/customer_support
+spring.datasource.username=root
+spring.datasource.password=root
+```
+
+---
+
+## Step 2: Run Backend
+
 ```bash
 cd backend
-mvn clean test
+
+mvn clean install
+
 mvn spring-boot:run
 ```
 
-### 2. Access the Application
-- **Frontend Dashboard**: `http://localhost:8080`
-- **H2 Database Console**: `http://localhost:8080/h2-console`
-  - JDBC URL: `jdbc:h2:mem:supportdb`
-  - Username: `sa`
-  - Password: *(leave blank)*
-
----
-
-## 4. Ticket Workflow & Business Rules
+Application starts at:
 
 ```text
-OPEN ──(assign)──> ASSIGNED ──(start)──> IN_PROGRESS ──(resolve + notes)──> RESOLVED ──(close)──> CLOSED
+http://localhost:8080
 ```
 
-1. **Sequential Workflow**: Only valid transitions permitted (`OPEN` &rarr; `ASSIGNED` &rarr; `IN_PROGRESS` &rarr; `RESOLVED` &rarr; `CLOSED`).
-2. **Assignment**: Assigning an agent transitions status from `OPEN` to `ASSIGNED` and validates that the agent exists.
-3. **Resolution**: Marked as `RESOLVED` only from `IN_PROGRESS` with mandatory resolution notes.
-4. **Closed Ticket Immutability**: Once `CLOSED`, a ticket cannot be modified, reassigned, or reopened.
+---
+
+## Step 3: Open Application
+
+Open browser:
+
+```text
+http://localhost:8080
+```
 
 ---
 
-## 5. REST APIs Summary
+# 7. REST API Summary
 
-| Method | Endpoint | Description | Status Code |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/tickets` | Create a new ticket (Status: `OPEN`) | `201 Created` |
-| `GET` | `/api/tickets` | Get all tickets | `200 OK` |
-| `GET` | `/api/tickets/{id}` | Get ticket by ID | `200 OK` |
-| `PUT` | `/api/tickets/{id}/assign` | Assign agent (`OPEN` &rarr; `ASSIGNED`) | `200 OK` |
-| `PUT` | `/api/tickets/{id}/status` | Update ticket status | `200 OK` |
-| `PUT` | `/api/tickets/{id}/resolve` | Resolve ticket with notes (`IN_PROGRESS` &rarr; `RESOLVED`) | `200 OK` |
-| `PUT` | `/api/tickets/{id}/close` | Close ticket (`RESOLVED` &rarr; `CLOSED`) | `200 OK` |
-| `GET` | `/api/tickets/search` | Search & filter by keyword, status, priority, agent | `200 OK` |
-| `GET` | `/api/tickets/stats` | Dashboard count metrics | `200 OK` |
-| `GET` | `/api/customers` | List customers for dropdowns | `200 OK` |
-| `GET` | `/api/agents` | List agents for assignment | `200 OK` |
+| Method| Endpoint                 | Description         |
+|-------|--------------------------|---------------------|
+| POST  | /api/tickets             | Create Ticket       |
+| GET   | /api/tickets             | Get All Tickets     |
+| GET   | /api/tickets/{id}        | Get Ticket By ID    |
+| PUT   | /api/tickets/{id}/assign | Assign Ticket       |
+| PUT   | /api/tickets/{id}/status | Update Status       |
+| PUT   | /api/tickets/{id}/resolve| Resolve Ticket      |
+| PUT   | /api/tickets/{id}/close  | Close Ticket        |
+| GET   | /api/tickets/search      | Search Tickets      |
+| GET   | /api/tickets/stats       | Dashboard Statistics|
+| GET   | /api/customers           | Get Customers       |
+| GET   | /api/agents              | Get Agents          |
+
+Complete API details are available in:
+
+```text
+docs/API_Documentation.md
+```
 
 ---
 
-## 6. SQL Tasks (`database/queries.sql`)
+# 8. Database Queries
 
-1. **Tickets by Priority**:
-   ```sql
-   SELECT priority, COUNT(*) AS ticket_count FROM tickets GROUP BY priority ORDER BY ticket_count DESC;
-   ```
-2. **Tickets by Agent**:
-   ```sql
-   SELECT a.id, a.name, a.department, COUNT(t.id) AS total_assigned_tickets
-   FROM agents a LEFT JOIN tickets t ON a.id = t.agent_id
-   GROUP BY a.id, a.name, a.department ORDER BY total_assigned_tickets DESC;
-   ```
-3. **Open Tickets**:
-   ```sql
-   SELECT t.id, t.title, t.priority, c.name AS customer_name, t.created_at
-   FROM tickets t JOIN customers c ON t.customer_id = c.id
-   WHERE t.status = 'OPEN' ORDER BY t.created_at ASC;
-   ```
-4. **Average Tickets per Agent**:
-   ```sql
-   SELECT ROUND(CAST(COUNT(t.id) AS DECIMAL(10,2)) / (SELECT COUNT(*) FROM agents), 2) AS avg_tickets_per_agent
-   FROM tickets t WHERE t.agent_id IS NOT NULL;
-   ```
-5. **Highest-Priority Unresolved Tickets**:
-   ```sql
-   SELECT t.id, t.title, t.priority, t.status, c.name AS customer_name, COALESCE(a.name, 'Unassigned') AS agent_name
-   FROM tickets t JOIN customers c ON t.customer_id = c.id LEFT JOIN agents a ON t.agent_id = a.id
-   WHERE t.status NOT IN ('RESOLVED', 'CLOSED')
-   ORDER BY CASE t.priority WHEN 'URGENT' THEN 1 WHEN 'HIGH' THEN 2 WHEN 'MEDIUM' THEN 3 WHEN 'LOW' THEN 4 END ASC;
-   ```
+The project includes SQL query solutions for reporting and analytics.
+
+### Queries Implemented
+
+- Tickets by Priority
+- Tickets by Agent
+- Open Tickets Report
+- Average Tickets per Agent
+- Highest Priority Unresolved Tickets
+
+Location:
+
+```text
+database/queries.sql
+```
+
+---
+
+# 9. Testing Overview
+
+Testing was performed across multiple layers of the application to validate functionality, business rules, APIs, database operations, and frontend behavior.
+
+### Testing Areas Covered
+
+- Functional Testing
+- Business Rule Validation
+- REST API Testing
+- Database Testing
+- UI Testing
+- Unit Testing
+- Integration Testing
+
+### Test Artifacts
+
+| Document                      | Purpose                   |
+|-------------------------------|---------------------------|
+| Test_Plan.md                  | Testing Strategy          |
+| API_Documentation.md          | API Reference             |
+| Dashboard_TestCases.md        | Dashboard Validation      |
+| UI_Test_Cases.md              | Frontend Testing          |
+| SQL_Test_Cases.md             | Database Testing          |
+| Ticket_Creation_TestCases.md  | Ticket Creation Validation|
+| Ticket_Assignment_TestCases.md| Assignment Validation     |
+| Status_Transition_TestCases.md| Workflow Validation       |
+
+---
+
+# 10. Automated Test Results
+
+## Unit Testing
+
+### Test Class
+
+```text
+TicketServiceTest
+```
+
+### Execution Command
+
+```bash
+mvn -Dtest=TicketServiceTest test
+```
+
+### Result
+
+```text
+Tests Run: 12
+Failures: 0
+Errors: 0
+Skipped: 0
+
+BUILD SUCCESS
+```
+
+---
+
+## Integration Testing
+
+### Test Class
+
+```text
+TicketControllerIntegrationTest
+```
+
+### Execution Command
+
+```bash
+mvn -Dtest=TicketControllerIntegrationTest test
+```
+
+### Result
+
+```text
+Tests Run: 6
+Failures: 0
+Errors: 0
+Skipped: 0
+
+BUILD SUCCESS
+```
+
+---
+
+## Automated Testing Summary
+
+| Test Suite                     | Total Tests | Passed | Failed |
+|--------------------------------|-------------|--------|--------|
+| TicketServiceTest              | 12          | 12     | 0      |
+| TicketControllerIntegrationTest| 6           | 6      | 0      |
+| Total                          | 18          | 18     | 0      |
+
+### Automated Test Screenshots
+
+- **Unit Test Execution**:
+![Unit Test Results](testing/screenshots/Unit_Test_Result.png)
+
+- **Integration Test Execution**:
+![Integration Test Results](testing/screenshots/Integration_Test_Result.png)
+
+---
+
+# 11. Manual Testing Summary
+
+The following functionality was manually verified using the application UI, Postman, and MySQL.
+
+### Verified Features
+
+- Ticket Creation
+- Ticket Assignment
+- Status Update Workflow
+- Ticket Resolution
+- Ticket Closure
+- Dashboard Statistics
+- Status Filtering
+- Priority Filtering
+- API Validation
+- Database Persistence
+- Error Handling
+
+### Tools Used
+
+- Postman
+- MySQL Workbench
+- Google Chrome
+- Spring Boot Application
+
+### Visual Evidence & Screenshots
+
+- **UI Dashboard**:
+![UI Dashboard](testing/screenshots/UI_Dashboard.png)
+
+- **UI Ticket Creation**:
+![UI Ticket Creation](testing/screenshots/UI_Ticket_Creation.png)
+
+- **API Create Ticket**:
+![API Create Ticket](testing/screenshots/API_Create_Ticket.png)
+
+- **Dashboard Stats**:
+![Dashboard Stats](testing/screenshots/API_Dashboard_Stats.png)
+
+- **Database Validation**:
+![Database Validation](testing/screenshots/Database_Tickets_Table.png)
+
+---
+
+# 12. Assumptions
+
+The following assumptions were considered during development and testing:
+
+- Application is running in a local environment.
+- MySQL database is configured correctly.
+- Seed data is loaded successfully.
+- APIs are accessible through localhost.
+- Users have access to all application functionality.
+- Functional testing is the primary scope.
+- Performance and security testing are outside the assignment scope.
+
+---
+
+# 13. Test Deliverables
+
+The following deliverables are included with the project:
+
+- README.md
+- Test_Plan.md
+- API_Documentation.md
+- Dashboard_TestCases.md
+- UI_Test_Cases.md
+- SQL_Test_Cases.md
+- JUnit Test Results
+- Integration Test Results
+- Postman Validation Results
+- UI Screenshots
+- Defect Verification Notes
+
+---
+
+# 14. Conclusion
+
+The Customer Support Ticket System was successfully tested across the UI, API, database, service layer, and integration layer.
+
+The following areas were validated successfully:
+
+- Ticket Creation
+- Ticket Assignment
+- Ticket Workflow Transitions
+- Resolution Validation
+- Closed Ticket Restrictions
+- Dashboard Statistics
+- Database Persistence
+- API Functionality
+- UI Functionality
+
+### Final Test Results
+
+```text
+Unit Tests Passed: 12/12
+Integration Tests Passed: 6/6
+Total Tests Passed: 18/18
+```
+
+The application satisfies the functional, database, API, and testing requirements defined for the assignment and is ready for submission.

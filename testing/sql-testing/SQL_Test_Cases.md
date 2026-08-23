@@ -1,79 +1,88 @@
-# SQL Tasks Test Cases & Validation
+# SQL Test Cases & Validation
 
-## 1. Tickets by Priority
-- **SQL Statement**:
-  ```sql
-  SELECT priority, COUNT(*) AS ticket_count
-  FROM tickets
-  GROUP BY priority
-  ORDER BY ticket_count DESC;
-  ```
-- **Validation**: Grouping matches all priority levels present in the database. Counts equal total tickets.
-- **Result**: PASS
+## SQL Test Execution Summary
+
+| Total Queries Tested | Passed | Failed | Status |
+|----------------------|--------|--------|---------|
+| 5                    |  5     |   0    | PASS    |
 
 ---
 
-## 2. Tickets by Agent
-- **SQL Statement**:
-  ```sql
-  SELECT 
-      a.id AS agent_id,
-      a.name AS agent_name,
-      a.department,
-      COUNT(t.id) AS total_assigned_tickets
-  FROM agents a
-  LEFT JOIN tickets t ON a.id = t.agent_id
-  GROUP BY a.id, a.name, a.department
-  ORDER BY total_assigned_tickets DESC, a.name ASC;
-  ```
-- **Validation**: Uses `LEFT JOIN` so agents with 0 assigned tickets are still displayed with count 0.
-- **Result**: PASS
+## SQL Test Cases
+
+| Test ID       | Scenario                        | Result |
+|---------------|---------------------------------|--------|
+| TC_SQL_01     | Tickets by Priority             | PASS   |
+| TC_SQL_02     | Tickets by Agent                | PASS   |
+| TC_SQL_03     | Open Tickets Report             | PASS   |
+| TC_SQL_04     | Average Tickets per Agent       | PASS   |
+| TC_SQL_05     | Highest Priority Unresolved Tickets | PASS   |
 
 ---
 
-## 3. Open Tickets
-- **SQL Statement**:
-  ```sql
-  SELECT t.id, t.title, t.description, t.priority, c.name AS customer_name, c.email AS customer_email, t.created_at
-  FROM tickets t
-  JOIN customers c ON t.customer_id = c.id
-  WHERE t.status = 'OPEN'
-  ORDER BY t.created_at ASC;
-  ```
-- **Validation**: Returns exclusively tickets with `status = 'OPEN'`. Customer details correctly joined.
-- **Result**: PASS
+## Validation Details
+
+### TC_SQL_01 – Tickets by Priority
+- Verified ticket counts are grouped correctly by priority.
+- Total count matches records in the tickets table.
+- Result: PASS
+
+### TC_SQL_02 – Tickets by Agent
+- Verified ticket count for each agent.
+- Agents without assigned tickets are also displayed.
+- Result: PASS
+
+### TC_SQL_03 – Open Tickets Report
+- Verified only OPEN tickets are returned.
+- Customer information is displayed correctly.
+- Result: PASS
+
+### TC_SQL_04 – Average Tickets per Agent
+- Verified average ticket calculation.
+- Result matches expected database values.
+- Result: PASS
+
+### TC_SQL_05 – Highest Priority Unresolved Tickets
+- Verified RESOLVED and CLOSED tickets are excluded.
+- Verified sorting order: URGENT → HIGH → MEDIUM → LOW.
+- Result: PASS
+
+## Validation Coverage
+
+### Ticket Analytics
+- Tickets grouped by priority
+- Tickets assigned per agent
+- Open ticket reporting
+
+### Business Reporting
+- Average tickets per agent
+- Highest priority unresolved tickets
+
+### Database Validation
+- Table relationships verified
+- Join operations verified
+- Aggregate functions verified
+- Sorting and filtering logic verified
 
 ---
 
-## 4. Average Tickets per Agent
-- **SQL Statement**:
-  ```sql
-  SELECT ROUND(CAST(COUNT(t.id) AS DECIMAL(10,2)) / (SELECT COUNT(*) FROM agents), 2) AS avg_tickets_per_agent
-  FROM tickets t
-  WHERE t.agent_id IS NOT NULL;
-  ```
-- **Validation**: Correctly calculates assigned tickets divided by total agent count, rounded to 2 decimal places.
-- **Result**: PASS
+## Database Testing Evidence
+
+### Tickets Table Validation
+
+![Database Validation](../screenshots/Database_Tickets_Table.png)
 
 ---
 
-## 5. Highest-Priority Unresolved Tickets
-- **SQL Statement**:
-  ```sql
-  SELECT t.id, t.title, t.priority, t.status, c.name AS customer_name, COALESCE(a.name, 'Unassigned') AS agent_name, t.created_at
-  FROM tickets t
-  JOIN customers c ON t.customer_id = c.id
-  LEFT JOIN agents a ON t.agent_id = a.id
-  WHERE t.status NOT IN ('RESOLVED', 'CLOSED')
-  ORDER BY 
-      CASE t.priority 
-          WHEN 'URGENT' THEN 1 
-          WHEN 'HIGH' THEN 2 
-          WHEN 'MEDIUM' THEN 3 
-          WHEN 'LOW' THEN 4 
-          ELSE 5 
-      END ASC,
-      t.created_at ASC;
-  ```
-- **Validation**: Excludes resolved/closed tickets, orders `URGENT` first, then `HIGH`, `MEDIUM`, `LOW`.
-- **Result**: PASS
+## SQL Testing Result
+
+All SQL queries executed successfully and returned expected results.
+
+- Total Queries Tested: 5
+- Passed: 5
+- Failed: 0
+- Database Relationships Verified
+- Query Results Validated
+- Business Reporting Verified
+
+**Final Status: PASS**

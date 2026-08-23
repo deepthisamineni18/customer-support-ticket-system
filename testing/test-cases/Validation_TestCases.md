@@ -1,10 +1,58 @@
 # Test Cases: Input & Field Validation
 
-| Test Case ID | Test Scenario | Pre-conditions | Test Steps | Expected Result | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **TC_VAL_01** | Create ticket with missing mandatory fields | Backend running | 1. Send `POST /api/tickets` with `{}`. | HTTP 400 Bad Request; errors list required fields (`title`, `description`, `priority`, `customerId`). | PASS |
-| **TC_VAL_02** | Customer email format validation | Backend running | 1. Send `POST /api/customers` with `email: "not-an-email"`. | HTTP 400 Bad Request with invalid email error. | PASS |
-| **TC_VAL_03** | Agent email format validation | Backend running | 1. Send `POST /api/agents` with `email: "invalid-agent-email"`. | HTTP 400 Bad Request with email validation error. | PASS |
-| **TC_VAL_04** | Assign ticket with null agent ID | Ticket exists | 1. Send `PUT /api/tickets/{id}/assign` with `{}`. | HTTP 400 Bad Request; `agentId is required`. | PASS |
-| **TC_VAL_05** | Update status with null status | Ticket exists | 1. Send `PUT /api/tickets/{id}/status` with `{}`. | HTTP 400 Bad Request; `status is required`. | PASS |
-| **TC_VAL_06** | Invalid status enum value | Ticket exists | 1. Send `PUT /api/tickets/{id}/status` with `{ "status": "RANDOM_STATUS" }`. | HTTP 400 Bad Request; message deserialization error. | PASS |
+## Test Execution Summary
+
+| Total Test Cases | Passed | Failed   | Result |
+|------------------|--------|----------|--------|
+| 6                | 6      | 0        | PASS   |
+
+---
+
+## Detailed Test Cases
+
+| Test ID  | Test Scenario                              | Status|
+|----------|--------------------------------------------|-------|
+| TC_VAL_01| Create ticket with missing mandatory fields| PASS  |
+| TC_VAL_02| Customer email format validation           | PASS  |
+| TC_VAL_03| Agent email format validation              | PASS  |
+| TC_VAL_04| Assign ticket with null agent ID           | PASS  |
+| TC_VAL_05| Update status with null status             | PASS  |
+| TC_VAL_06| Invalid status enum value                  | PASS  |
+
+---
+
+## Validation Performed
+
+✓ Mandatory field validation is working correctly
+
+✓ Customer email format validation is verified
+
+✓ Agent email format validation is verified
+
+✓ Agent assignment request validation is verified
+
+✓ Status update request validation is verified
+
+✓ Invalid enum values are rejected correctly
+
+✓ HTTP 400 Bad Request responses are returned for invalid inputs
+
+✓ Error messages are displayed correctly for validation failures
+
+---
+
+## Test Result
+
+Input validation and field-level validation have been tested successfully. Required fields, email formats, request payload validation, and invalid enum handling behave according to business and API requirements.
+
+---
+
+## Screenshot Evidence
+
+### API Validation Response
+
+![API Validation](../screenshots/API_Create_Ticket.png)
+
+### UI Validation Message
+
+![UI Validation](../screenshots/UI_Ticket_Creation.png)

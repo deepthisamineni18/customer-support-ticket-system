@@ -1,58 +1,129 @@
 # Test Execution Summary Report
 
-## 1. Overview
-- **Project**: Customer Support Ticket System
-- **Build / Version**: v1.0.0
-- **Test Date**: 2026-08-22
-- **Test Type**: Unit, Integration, API, SQL, and UI Functional Testing
-- **Execution Tool**: Maven Surefire, JUnit 5, MockMvc
+## Project Information
+
+| Item | Details |
+|--------|---------|
+| Project Name | Customer Support Ticket System |
+| Version | v1.0.0 |
+| Test Date | 23-Aug-2026 |
+| Test Types Executed | Unit Testing, Integration Testing, API Testing, Database Testing, UI Testing |
+| Tools Used | JUnit 5, Mockito, Spring Boot Test, MockMvc, Postman, MySQL |
 
 ---
 
-## 2. Test Execution Statistics
+## Test Execution Results
 
-| Metric | Count |
-| :--- | :--- |
-| **Total Automated Tests Executed** | 18 |
-| **Passed** | 18 |
-| **Failed** | 0 |
-| **Errors** | 0 |
-| **Skipped** | 0 |
-| **Pass Rate** | **100%** |
-
----
-
-## 3. Automated Test Suite Breakdown
-
-### 1. `TicketServiceTest` (Unit Tests)
-- Total Tests: 12
-- Status: **12 / 12 Passed**
-- Scenarios Covered:
-  - `testCreateTicket_Success`
-  - `testCreateTicket_CustomerNotFound`
-  - `testAssignTicket_Success`
-  - `testAssignTicket_AgentNotFound`
-  - `testAssignTicket_ClosedTicket_ThrowsException`
-  - `testValidTransitions_FullWorkflow` (`OPEN` &rarr; `ASSIGNED` &rarr; `IN_PROGRESS` &rarr; `RESOLVED` &rarr; `CLOSED`)
-  - `testInvalidTransition_OpenToResolved_ThrowsException`
-  - `testInvalidTransition_ClosedTicketModification_ThrowsException`
-  - `testResolveTicket_MissingResolutionNotes_ThrowsException`
-  - `testResolveTicket_NotInProgress_ThrowsException`
-  - `testCloseTicket_NotResolved_ThrowsException`
-  - `testGetStats_CalculatesCorrectCounts`
-
-### 2. `TicketControllerIntegrationTest` (Integration Tests)
-- Total Tests: 6
-- Status: **6 / 6 Passed**
-- Scenarios Covered:
-  - `testCreateTicket_ApiSuccess` (HTTP 201 Created)
-  - `testCreateTicket_ValidationFailure` (HTTP 400 Bad Request)
-  - `testFullTicketLifecycle` (End-to-End lifecycle via REST)
-  - `testGetStats_ApiSuccess` (Metrics counter payload verification)
-  - `testSearchTickets` (Search & filter response format)
-  - `testGetCustomersAndAgents` (Lookup endpoints validation)
+| Metric                         | Result |
+|--------------------------------|--------|
+| Total Automated Tests Executed | 18     |
+| Passed                         | 18     |
+| Failed                         | 0      |
+| Skipped                        | 0      |
+| Pass Percentage                | 100%   |
 
 ---
 
-## 4. Conclusion
-All automated and functional test cases have executed successfully. The application adheres to all functional, business, API, database, and UI requirements with zero outstanding blocking defects.
+## Automated Test Results
+
+### Unit Testing
+
+**Test Class:** `TicketServiceTest`
+
+**Execution Result:** 12 / 12 Passed
+
+**Validated Areas:**
+
+- Ticket creation
+- Customer validation
+- Agent assignment
+- Ticket workflow transitions
+- Resolution validation
+- Closed ticket restrictions
+- Business rule enforcement
+- Dashboard statistics calculation
+
+---
+
+### Integration Testing
+
+**Test Class:** `TicketControllerIntegrationTest`
+
+**Execution Result:** 6 / 6 Passed
+
+**Validated Areas:**
+
+- Ticket creation API
+- Request validation
+- Complete ticket lifecycle workflow
+- Dashboard statistics API
+- Search and filter APIs
+- Customer and agent lookup APIs
+
+---
+
+## Manual Testing Summary
+
+The following areas were manually validated through UI, API, and database testing:
+
+| Module | Status |
+|----------|---------|
+| Dashboard Loading | PASS |
+| Ticket Creation | PASS |
+| Ticket Assignment | PASS |
+| Status Transitions | PASS |
+| Ticket Resolution | PASS |
+| Ticket Closure | PASS |
+| Dashboard Statistics | PASS |
+| Database Persistence | PASS |
+| API Validation | PASS |
+| Search & Filters | PASS |
+
+---
+
+## Test Evidence
+
+### Unit Test Execution
+
+![Unit Test Result](../screenshots/Unit_Test_Result.png)
+
+### Integration Test Execution
+
+![Integration Test Result](../screenshots/Integration_Test_Result.png)
+
+### API Testing
+
+![Create Ticket API](../screenshots/API_Create_Ticket.png)
+
+![Dashboard Statistics API](../screenshots/API_Dashboard_Stats.png)
+
+### Database Validation
+
+![Database Records](../screenshots/Database_Tickets_Table.png)
+
+### User Interface Validation
+
+![Dashboard Screen](../screenshots/UI_Dashboard.png)
+
+![Ticket Creation Workflow](../screenshots/UI_Ticket_Creation.png)
+
+---
+
+## Defect Summary
+
+| Severity   | Count |
+|------------|-------|
+| Critical   | 0     |
+| High       | 0     |
+| Medium     | 0     |
+| Low        | 0     |
+
+---
+
+## Conclusion
+
+Testing was completed successfully across the application layers including UI, REST APIs, business logic, database operations, and automated test suites.
+
+A total of 18 automated test cases were executed with a 100% pass rate. Manual validation confirmed that ticket creation, assignment, workflow transitions, dashboard functionality, search/filter operations, and database persistence behave as expected.
+
+No critical or high-severity defects remain open. The application is considered stable and meets the functional requirements defined for this assignment.

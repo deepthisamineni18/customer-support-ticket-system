@@ -1,9 +1,80 @@
-# Test Cases: Ticket Assignment
+# Ticket Assignment Test Cases
 
-| Test Case ID | Test Scenario | Pre-conditions | Test Steps | Expected Result | Status |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **TC_TA_01** | Assign OPEN ticket to valid agent | Ticket in `OPEN` state, Agent ID 1 exists | 1. Send `PUT /api/tickets/{id}/assign` with `{ "agentId": 1 }`. | HTTP 200 OK; ticket status transitions to `ASSIGNED`; agent details attached. | PASS |
-| **TC_TA_02** | Reassign ASSIGNED ticket to another agent | Ticket in `ASSIGNED` state, Agent ID 2 exists | 1. Send `PUT /api/tickets/{id}/assign` with `{ "agentId": 2 }`. | HTTP 200 OK; ticket stays `ASSIGNED` with new agent details. | PASS |
-| **TC_TA_03** | Assign ticket with non-existent agent ID | Ticket in `OPEN` state, Agent ID 999 does not exist | 1. Send `PUT /api/tickets/{id}/assign` with `{ "agentId": 999 }`. | HTTP 404 Not Found; error message "Agent not found with ID: 999". | PASS |
-| **TC_TA_04** | Attempt to assign a CLOSED ticket | Ticket in `CLOSED` state | 1. Send `PUT /api/tickets/{id}/assign` with `{ "agentId": 1 }`. | HTTP 400 Bad Request; error message "A closed ticket cannot be modified or assigned". | PASS |
-| **TC_TA_05** | UI assign workflow | Ticket in `OPEN` state | 1. Open Ticket Manage modal.<br>2. Select agent from dropdown.<br>3. Click "Assign Ticket". | Status badge changes to `ASSIGNED`; dashboard counters update. | PASS |
+## Ticket Assignment Test Execution Summary
+
+| Total Test Cases | Passed | Failed | Status |
+|------------------|--------|--------|--------|
+| 5                | 5      | 0      | PASS   |
+
+---
+
+## Ticket Assignment Test Cases
+
+| Test ID  | Scenario                                | Status |
+|----------|----------------------------------------|--------|
+| TC_TA_01 | Assign OPEN Ticket to Valid Agent      | PASS   |
+| TC_TA_02 | Reassign Ticket to Another Agent       | PASS   |
+| TC_TA_03 | Assign Ticket with Invalid Agent ID    | PASS   |
+| TC_TA_04 | Assign CLOSED Ticket                   | PASS   |
+| TC_TA_05 | UI Assignment Workflow                 | PASS   |
+
+---
+
+## Validation Details
+
+### TC_TA_01 – Assign OPEN Ticket to Valid Agent
+- Assigned an OPEN ticket to an existing agent.
+- Ticket status changed to ASSIGNED.
+- Agent details updated successfully.
+- Result: PASS
+
+### TC_TA_02 – Reassign Ticket to Another Agent
+- Reassigned an already assigned ticket to a different agent.
+- Agent information updated correctly.
+- Ticket remained in ASSIGNED status.
+- Result: PASS
+
+### TC_TA_03 – Assign Ticket with Invalid Agent ID
+- Attempted assignment using a non-existing agent ID.
+- System returned validation error.
+- Assignment was not completed.
+- Result: PASS
+
+### TC_TA_04 – Assign CLOSED Ticket
+- Attempted to assign a ticket in CLOSED status.
+- System prevented modification of the closed ticket.
+- Appropriate error message displayed.
+- Result: PASS
+
+### TC_TA_05 – UI Assignment Workflow
+- Opened ticket management dialog.
+- Selected agent from dropdown list.
+- Assigned ticket successfully through UI.
+- Dashboard and ticket table updated correctly.
+- Result: PASS
+
+---
+
+## Business Rule Validation
+
+### Rules Verified
+
+- Only valid agents can be assigned to tickets.
+- Invalid agent IDs are rejected.
+- Ticket assignment updates the assigned agent details.
+- Closed tickets cannot be assigned or modified.
+- Dashboard data updates after successful assignment.
+
+---
+
+## Ticket Assignment Testing Result
+
+All ticket assignment scenarios were executed successfully.
+
+- Agent Assignment Validation: PASS
+- Reassignment Functionality: PASS
+- Invalid Agent Handling: PASS
+- Closed Ticket Protection: PASS
+- UI Assignment Workflow: PASS
+
+**Final Status: PASS**

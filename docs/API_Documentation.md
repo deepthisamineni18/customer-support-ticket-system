@@ -39,6 +39,8 @@
   "updatedAt": "2026-08-22T20:00:00"
 }
 ```
+- **Execution Evidence**:
+![API Create Ticket](../testing/screenshots/API_Create_Ticket.png)
 
 ---
 
@@ -130,6 +132,8 @@
   "closed": 1
 }
 ```
+- **Execution Evidence**:
+![Dashboard Stats](../testing/screenshots/API_Dashboard_Stats.png)
 
 ---
 
