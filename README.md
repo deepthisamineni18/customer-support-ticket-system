@@ -177,6 +177,52 @@ http://localhost:8080
 
 ---
 
+## Frontend Information
+
+The frontend is developed using:
+
+- HTML5
+- CSS3
+- Vanilla JavaScript
+
+Frontend source files are located in:
+
+```text
+frontend/
+├── index.html
+├── css/
+└── js/
+```
+
+The frontend dashboard communicates with Spring Boot REST APIs using JavaScript Fetch API calls.
+
+For deployment simplicity, the UI is served directly through the Spring Boot application from:
+
+```text
+backend/src/main/resources/static/
+```
+
+No separate frontend server or build process is required.
+
+---
+
+## Accessing the Application
+
+After starting the Spring Boot application, open:
+
+```text
+http://localhost:8080
+```
+
+The Customer Support Dashboard will load automatically and provide access to:
+
+- Ticket Dashboard
+- Ticket Creation
+- Ticket Assignment
+- Status Updates
+- Search & Filtering
+- Dashboard Statistics
+
 # 7. REST API Summary
 
 | Method| Endpoint                 | Description         |
