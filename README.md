@@ -109,35 +109,161 @@ customer-support-ticket-system/
 
 ---
 
-# 5. Ticket Workflow
+# 5. Project Architecture
+
+The application follows a layered architecture to separate responsibilities and improve maintainability.
 
 ```text
-OPEN
-   ↓
-ASSIGNED
-   ↓
-IN_PROGRESS
-   ↓
-RESOLVED
-   ↓
-CLOSED
+Browser (HTML/CSS/JavaScript)
+            │
+            ▼
+      REST Controller
+            │
+            ▼
+       Service Layer
+      (Business Logic)
+            │
+            ▼
+      Repository Layer
+   (Spring Data JPA)
+            │
+            ▼
+ Hibernate (JPA Provider)
+            │
+            ▼
+          MySQL Database
 ```
 
-### Business Rules
+### Layer Responsibilities
 
-1. Ticket must start in OPEN state.
+**Frontend (HTML/CSS/JavaScript)**
 
-2. Ticket can only move through the defined workflow.
+- Displays dashboard and ticket management UI.
+- Sends API requests to the backend.
+- Dynamically updates data without hardcoding values.
 
-3. Agent assignment is mandatory before moving to IN_PROGRESS.
+**Controller Layer**
 
-4. Resolution notes are mandatory before RESOLVED.
+- Exposes REST APIs.
+- Receives HTTP requests from the frontend.
+- Returns API responses.
 
-5. CLOSED tickets cannot be modified or reopened.
+**Service Layer**
+
+- Contains business logic.
+- Validates ticket workflow transitions.
+- Enforces assignment and resolution rules.
+
+**Repository Layer**
+
+- Handles database operations.
+- Uses Spring Data JPA for CRUD functionality.
+- Generates SQL automatically through Hibernate.
+
+**Database Layer**
+
+- Stores Customers, Agents and Tickets.
+- Maintains relationships and ticket history.
 
 ---
 
-# 6. How to Run the Application
+# 6. Request Flow
+
+The following flow occurs whenever a user performs an action in the application:
+
+```text
+User Action
+     │
+     ▼
+Frontend (HTML/JS)
+     │
+     ▼
+REST Controller
+     │
+     ▼
+Service Layer
+     │
+     ▼
+Repository Layer
+     │
+     ▼
+Hibernate
+     │
+     ▼
+MySQL Database
+     │
+     ▼
+Response Returned
+     │
+     ▼
+UI Updated
+```
+
+### Example: Create Ticket
+
+1. User enters ticket details and submits the form.
+2. JavaScript sends a POST request to `/api/tickets`.
+3. Controller receives the request.
+4. Service validates the customer and ticket data.
+5. Repository saves the ticket.
+6. Hibernate generates the SQL INSERT statement.
+7. Database stores the ticket.
+8. Response is returned to the UI.
+9. Dashboard and ticket list are refreshed.
+
+---
+
+# 7. Entity Relationship
+
+The application contains three core entities:
+
+```text
+Customer (1)
+    │
+    │
+    ▼
+Ticket (Many)
+    ▲
+    │
+    │
+Agent (1)
+```
+
+### Relationships
+
+- One Customer can create multiple Tickets.
+- One Agent can handle multiple Tickets.
+- Each Ticket belongs to exactly one Customer.
+- Each Ticket can be assigned to one Agent.
+
+---
+
+# 8. Ticket Workflow
+
+```text
+OPEN
+  ↓
+ASSIGNED
+  ↓
+IN_PROGRESS
+  ↓
+RESOLVED
+  ↓
+CLOSED
+```
+
+### Workflow Rules
+
+- Every new ticket starts in OPEN status.
+- A ticket must be assigned before moving to IN_PROGRESS.
+- Resolution notes are required before RESOLVED.
+- Only RESOLVED tickets can move to CLOSED.
+- CLOSED tickets cannot be reopened.
+- Invalid status transitions are rejected.
+
+---
+
+# 9. How to Run the Application
 
 ## Step 1: Configure Database & Runtime SQL Scripts
 
@@ -216,7 +342,7 @@ The Customer Support Dashboard will load automatically and provide full access t
 - Search & Filtering
 - Dashboard Statistics
 
-# 7. REST API Summary
+# 10. REST API Summary
 
 | Method| Endpoint                 | Description         |
 |-------|--------------------------|---------------------|
@@ -240,7 +366,7 @@ docs/API_Documentation.md
 
 ---
 
-# 8. Database Queries
+# 11. Database Queries
 
 The project includes SQL query solutions for reporting and analytics.
 
@@ -260,7 +386,7 @@ database/queries.sql
 
 ---
 
-# 9. Testing Overview
+# 12. Testing Overview
 
 Testing was performed across multiple layers of the application to validate functionality, business rules, APIs, database operations, and frontend behavior.
 
@@ -289,7 +415,7 @@ Testing was performed across multiple layers of the application to validate func
 
 ---
 
-# 10. Automated Test Results
+# 13. Automated Test Results
 
 ## Unit Testing
 
@@ -363,7 +489,7 @@ BUILD SUCCESS
 
 ---
 
-# 11. Manual Testing Summary
+# 14. Manual Testing Summary
 
 The following functionality was manually verified using the application UI, Postman, and MySQL.
 
@@ -407,7 +533,7 @@ The following functionality was manually verified using the application UI, Post
 
 ---
 
-# 12. Assumptions
+# 15. Assumptions
 
 The following assumptions were considered during development and testing:
 
@@ -421,7 +547,7 @@ The following assumptions were considered during development and testing:
 
 ---
 
-# 13. Test Deliverables
+# 16. Test Deliverables
 
 The following deliverables are included with the project:
 
@@ -439,7 +565,7 @@ The following deliverables are included with the project:
 
 ---
 
-# 14. Conclusion
+# 17. Conclusion
 
 The Customer Support Ticket System was successfully tested across the UI, API, database, service layer, and integration layer.
 
