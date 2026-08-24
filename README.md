@@ -35,31 +35,39 @@ The application enforces business rules for ticket lifecycle management and prov
 customer-support-ticket-system/
 
 ├── backend/
-│   ├── src/main/java
-│   ├── src/main/resources
-│   └── src/test/java
-│
-├── frontend/
-│   ├── index.html
-│   ├── css/
-│   └── js/
+│   ├── src/main/java/
+│   ├── src/main/resources/
+│   │   ├── static/
+│   │   │   ├── css/
+│   │   │   │   └── style.css
+│   │   │   ├── js/
+│   │   │   │   └── app.js
+│   │   │   └── index.html
+│   │   ├── application.properties
+│   │   ├── schema.sql
+│   │   └── data.sql
+│   └── src/test/java/
 │
 ├── database/
-│   ├── schema.sql
-│   ├── data.sql
-│   └── queries.sql
-│
-├── testing/
-│   ├── test-plan/
-│   ├── test-cases/
-│   ├── api-testing/
-│   ├── sql-testing/
-│   ├── ui-testing/
-│   └── test-summary/
+│   ├── queries.sql
+│   └── sample_data.sql
 │
 ├── docs/
+│   ├── API_Documentation.md
+│   └── Assumptions.md
 │
-└── README.md
+├── testing/
+│   ├── api-testing/
+│   ├── bug-reports/
+│   ├── screenshots/
+│   ├── sql-testing/
+│   ├── test-cases/
+│   ├── test-plan/
+│   ├── test-summary/
+│   └── ui-testing/
+│
+├── README.md
+└── .gitignore
 ```
 
 ---
@@ -131,20 +139,31 @@ CLOSED
 
 # 6. How to Run the Application
 
-## Step 1: Configure Database
+## Step 1: Configure Database & Runtime SQL Scripts
 
 Update database configuration in:
 
 ```properties
-src/main/resources/application.properties
+backend/src/main/resources/application.properties
 ```
 
-Example:
+Runtime SQL schema initialization and initial seed data are managed directly by Spring Boot from:
 
-```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/customer_support
-spring.datasource.username=root
-spring.datasource.password=root
+```text
+backend/src/main/resources/schema.sql
+backend/src/main/resources/data.sql
+```
+
+Assignment SQL query solutions are stored separately in:
+
+```text
+database/queries.sql
+```
+
+Standalone sample seed data is available in:
+
+```text
+database/sample_data.sql
 ```
 
 ---
@@ -167,54 +186,28 @@ http://localhost:8080
 
 ---
 
-## Step 3: Open Application
+## Step 3: Run / Access Frontend
 
-Open browser:
-
-```text
-http://localhost:8080
-```
-
----
-
-## Frontend Information
-
-The frontend is developed using:
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-
-Frontend source files are located in:
-
-```text
-frontend/
-├── index.html
-├── css/
-└── js/
-```
-
-The frontend dashboard communicates with Spring Boot REST APIs using JavaScript Fetch API calls.
-
-For deployment simplicity, the UI is served directly through the Spring Boot application from:
+The frontend is built using HTML5, CSS3, and Vanilla JavaScript. For deployment simplicity and seamless integration, the user interface is served directly by the Spring Boot application from:
 
 ```text
 backend/src/main/resources/static/
+├── index.html
+├── css/
+│   └── style.css
+└── js/
+    └── app.js
 ```
 
-No separate frontend server or build process is required.
+No separate frontend web server or Node build process is required.
 
----
-
-## Accessing the Application
-
-After starting the Spring Boot application, open:
+Open your browser and navigate to:
 
 ```text
 http://localhost:8080
 ```
 
-The Customer Support Dashboard will load automatically and provide access to:
+The Customer Support Dashboard will load automatically and provide full access to:
 
 - Ticket Dashboard
 - Ticket Creation

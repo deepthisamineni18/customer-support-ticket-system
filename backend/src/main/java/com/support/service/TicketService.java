@@ -132,11 +132,12 @@ public class TicketService {
     public TicketStatsResponse getStats() {
         long total = ticketRepository.count();
         long open = ticketRepository.countByStatus(TicketStatus.OPEN);
-        long inProgress = ticketRepository.countByStatus(TicketStatus.IN_PROGRESS) + ticketRepository.countByStatus(TicketStatus.ASSIGNED);
+        long assigned = ticketRepository.countByStatus(TicketStatus.ASSIGNED);
+        long inProgress = ticketRepository.countByStatus(TicketStatus.IN_PROGRESS);
         long resolved = ticketRepository.countByStatus(TicketStatus.RESOLVED);
         long closed = ticketRepository.countByStatus(TicketStatus.CLOSED);
 
-        return new TicketStatsResponse(total, open, inProgress, resolved, closed);
+        return new TicketStatsResponse(total, open, assigned, inProgress, resolved, closed);
     }
 
     private void validateTransition(TicketStatus current, TicketStatus next) {

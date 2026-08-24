@@ -49,6 +49,8 @@ async function fetchStats() {
             const stats = await res.json();
             document.getElementById('stat-total').textContent = stats.total ?? 0;
             document.getElementById('stat-open').textContent = stats.open ?? 0;
+            const statAssignedEl = document.getElementById('stat-assigned');
+            if (statAssignedEl) statAssignedEl.textContent = stats.assigned ?? 0;
             document.getElementById('stat-progress').textContent = stats.inProgress ?? 0;
             document.getElementById('stat-resolved').textContent = stats.resolved ?? 0;
             document.getElementById('stat-closed').textContent = stats.closed ?? 0;

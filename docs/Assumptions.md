@@ -5,7 +5,7 @@
 - **Assignment**: When a ticket in `OPEN` state is assigned to an agent, its status automatically transitions to `ASSIGNED`. An `ASSIGNED` ticket can also be reassigned to another agent before moving to `IN_PROGRESS`.
 - **Resolution**: Tickets can only be marked as `RESOLVED` if they are currently `IN_PROGRESS` and non-empty `resolutionNotes` are provided.
 - **Closed Ticket Rule**: Once a ticket reaches `CLOSED`, it is permanently locked. No further updates, status changes, or assignments are allowed.
-- **Dashboard In-Progress Metric**: For the dashboard counter, `In Progress` includes both tickets in `ASSIGNED` and `IN_PROGRESS` states awaiting resolution.
+- **Dashboard In-Progress Metric**: For the dashboard counter, `In Progress` represents tickets with `IN_PROGRESS` status only.
 
 ## 2. Database & Data Model
 - **Primary Keys**: Auto-incrementing `BIGINT` identity IDs for portable compatibility across H2, PostgreSQL, and MySQL.

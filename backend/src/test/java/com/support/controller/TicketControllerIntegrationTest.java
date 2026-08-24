@@ -148,6 +148,7 @@ class TicketControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.total", greaterThanOrEqualTo(1)))
                 .andExpect(jsonPath("$.open", greaterThanOrEqualTo(0)))
+                .andExpect(jsonPath("$.assigned", greaterThanOrEqualTo(0)))
                 .andExpect(jsonPath("$.inProgress", greaterThanOrEqualTo(0)))
                 .andExpect(jsonPath("$.resolved", greaterThanOrEqualTo(0)))
                 .andExpect(jsonPath("$.closed", greaterThanOrEqualTo(0)));

@@ -217,8 +217,8 @@ class TicketServiceTest {
     void testGetStats_CalculatesCorrectCounts() {
         when(ticketRepository.count()).thenReturn(10L);
         when(ticketRepository.countByStatus(TicketStatus.OPEN)).thenReturn(3L);
-        when(ticketRepository.countByStatus(TicketStatus.IN_PROGRESS)).thenReturn(2L);
         when(ticketRepository.countByStatus(TicketStatus.ASSIGNED)).thenReturn(1L);
+        when(ticketRepository.countByStatus(TicketStatus.IN_PROGRESS)).thenReturn(2L);
         when(ticketRepository.countByStatus(TicketStatus.RESOLVED)).thenReturn(2L);
         when(ticketRepository.countByStatus(TicketStatus.CLOSED)).thenReturn(2L);
 
@@ -226,7 +226,8 @@ class TicketServiceTest {
 
         assertEquals(10L, stats.getTotal());
         assertEquals(3L, stats.getOpen());
-        assertEquals(3L, stats.getInProgress()); // 2 IN_PROGRESS + 1 ASSIGNED
+        assertEquals(1L, stats.getAssigned());
+        assertEquals(2L, stats.getInProgress());
         assertEquals(2L, stats.getResolved());
         assertEquals(2L, stats.getClosed());
     }

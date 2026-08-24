@@ -4,6 +4,7 @@ public class TicketStatsResponse {
 
     private long total;
     private long open;
+    private long assigned;
     private long inProgress;
     private long resolved;
     private long closed;
@@ -11,9 +12,10 @@ public class TicketStatsResponse {
     public TicketStatsResponse() {
     }
 
-    public TicketStatsResponse(long total, long open, long inProgress, long resolved, long closed) {
+    public TicketStatsResponse(long total, long open, long assigned, long inProgress, long resolved, long closed) {
         this.total = total;
         this.open = open;
+        this.assigned = assigned;
         this.inProgress = inProgress;
         this.resolved = resolved;
         this.closed = closed;
@@ -33,6 +35,14 @@ public class TicketStatsResponse {
 
     public void setOpen(long open) {
         this.open = open;
+    }
+
+    public long getAssigned() {
+        return assigned;
+    }
+
+    public void setAssigned(long assigned) {
+        this.assigned = assigned;
     }
 
     public long getInProgress() {
@@ -59,3 +69,4 @@ public class TicketStatsResponse {
         this.closed = closed;
     }
 }
+
