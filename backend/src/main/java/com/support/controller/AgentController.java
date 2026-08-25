@@ -1,7 +1,7 @@
 package com.support.controller;
 
 import com.support.entity.Agent;
-import com.support.repository.AgentRepository;
+import com.support.service.AgentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,31 +13,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/agents")
 public class AgentController {
 
-    private final AgentRepository agentRepository;
+    private final AgentService agentService;
 
-    public AgentController(AgentRepository agentRepository) {
-        this.agentRepository = agentRepository;
+    public AgentController(AgentService agentService) {
+        this.agentService = agentService;
     }
 
     @GetMapping
     public ResponseEntity<List<Agent>> getAllAgents() {
-        return ResponseEntity.ok(agentRepository.findAll());
+        return ResponseEntity.ok(agentService.getAllAgents());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Agent> getAgentById(@PathVariable Long id) {
-        return ResponseEntity.ok(agentRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Agent not found with ID: " + id)));
+        return ResponseEntity.ok(agentService.getAgentById(id));
     }
 
     @PostMapping
     public ResponseEntity<Agent> createAgent(@Valid @RequestBody Agent agent) {
-        return new ResponseEntity<>(agentRepository.save(agent), HttpStatus.CREATED);
+        return new ResponseEntity<>(agentService.createAgent(agent), HttpStatus.CREATED);
     }
 }
