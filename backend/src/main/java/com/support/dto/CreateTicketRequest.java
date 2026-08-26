@@ -3,13 +3,16 @@ package com.support.dto;
 import com.support.entity.TicketPriority;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 public class CreateTicketRequest {
 
     @NotBlank(message = "Title is required")
+    @Pattern(regexp = ".*[a-zA-Z].*", message = "Title must contain at least one letter")
     private String title;
 
     @NotBlank(message = "Description is required")
+    @Pattern(regexp = ".*[a-zA-Z].*", message = "Description must contain at least one letter")
     private String description;
 
     @NotNull(message = "Priority is required")
