@@ -68,9 +68,33 @@
 
 ## Database Testing Evidence
 
-### Tickets Table Validation
+### Query 1 – Tickets by Priority
 
-![Database Validation](../screenshots/Database_Tickets_Table.png)
+![SQL Query 1 - Tickets by Priority](../screenshots/SQL_Query1_TicketsByPriority.png)
+
+---
+
+### Query 2 – Tickets by Agent
+
+![SQL Query 2 - Tickets by Agent](../screenshots/SQL_Query2_TicketsByAgent.png)
+
+---
+
+### Query 3 – Open Tickets
+
+![SQL Query 3 - Open Tickets](../screenshots/SQL_Query3_OpenTickets.png)
+
+---
+
+### Query 4 – Average Tickets per Agent
+
+![SQL Query 4 - Average Tickets per Agent](../screenshots/SQL_Query4_AvgTicketsPerAgent.png)
+
+---
+
+### Query 5 – Highest Priority Unresolved Tickets
+
+![SQL Query 5 - Highest Priority Unresolved](../screenshots/SQL_Query5_HighPriorityUnresolved.png)
 
 ---
 
